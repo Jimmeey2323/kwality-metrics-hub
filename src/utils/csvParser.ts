@@ -30,6 +30,7 @@ export const parseCSV = (csvText: string): ParsedCSVData => {
 
   console.log('Papa parse result:', result);
   console.log('Headers found:', result.meta.fields);
+  console.log('Total rows:', result.data.length);
 
   const parsedData: ParsedCSVData = {};
 
@@ -40,13 +41,14 @@ export const parseCSV = (csvText: string): ParsedCSVData => {
     const metric = row.Metric?.trim();
     const total = parseFloat(row.Total) || 0;
 
-    console.log(`Row ${index}:`, { location, category, product, metric, total });
+    console.log(`Processing row ${index}:`, { location, category, product, metric, total });
 
     if (!location || !category || !product || !metric) {
-      console.log(`Skipping row ${index} due to missing data`);
+      console.log(`Skipping row ${index} due to missing required fields:`, { location, category, product, metric });
       return;
     }
 
+    // Initialize nested structure
     if (!parsedData[location]) {
       parsedData[location] = {};
       console.log(`Created location: ${location}`);
@@ -57,7 +59,7 @@ export const parseCSV = (csvText: string): ParsedCSVData => {
     }
     if (!parsedData[location][metric][category]) {
       parsedData[location][metric][category] = {};
-      console.log(`Created category: ${category} for metric: ${metric}`);
+      console.log(`Created category: ${category} for metric: ${metric} in location: ${location}`);
     }
 
     const months: { [key: string]: number | null } = {};
@@ -66,8 +68,8 @@ export const parseCSV = (csvText: string): ParsedCSVData => {
     Object.keys(row).forEach(key => {
       if (key.includes('-') && (key.includes('24') || key.includes('25'))) {
         const value = row[key];
-        // Convert empty strings and null values to null, parse numbers
-        if (value === '' || value === null || value === undefined) {
+        // Handle different representations of empty values
+        if (value === '' || value === null || value === undefined || value === 'null' || value === '0') {
           months[key] = null;
         } else {
           const numValue = parseFloat(value);
@@ -76,8 +78,9 @@ export const parseCSV = (csvText: string): ParsedCSVData => {
       }
     });
 
-    console.log(`Months for ${product}:`, months);
+    console.log(`Months data for ${product} in ${category}:`, months);
 
+    // Store the product data
     parsedData[location][metric][category][product] = {
       location,
       category,
@@ -86,11 +89,23 @@ export const parseCSV = (csvText: string): ParsedCSVData => {
       months,
       total,
     };
+
+    console.log(`Successfully added: ${location} > ${metric} > ${category} > ${product}`);
   });
 
-  console.log('Final parsed data structure:', parsedData);
-  console.log('Locations found:', Object.keys(parsedData));
-  
+  console.log('Final parsed data structure:');
+  Object.keys(parsedData).forEach(location => {
+    console.log(`Location: ${location}`);
+    Object.keys(parsedData[location]).forEach(metric => {
+      console.log(`  Metric: ${metric}`);
+      Object.keys(parsedData[location][metric]).forEach(category => {
+        console.log(`    Category: ${category}`);
+        const products = Object.keys(parsedData[location][metric][category]);
+        console.log(`      Products (${products.length}):`, products);
+      });
+    });
+  });
+
   return parsedData;
 };
 
