@@ -21,42 +21,62 @@ export interface ParsedCSVData {
 }
 
 export const parseCSV = (csvText: string): ParsedCSVData => {
+  console.log('Starting CSV parse...');
   const result = Papa.parse(csvText, {
     header: true,
     skipEmptyLines: true,
     transformHeader: (header) => header.trim(),
   });
 
+  console.log('Papa parse result:', result);
+  console.log('Headers found:', result.meta.fields);
+
   const parsedData: ParsedCSVData = {};
 
-  result.data.forEach((row: any) => {
+  result.data.forEach((row: any, index: number) => {
     const location = row.Location?.trim();
     const category = row.Category?.trim();
     const product = row.Product?.trim();
     const metric = row.Metric?.trim();
     const total = parseFloat(row.Total) || 0;
 
-    if (!location || !category || !product || !metric) return;
+    console.log(`Row ${index}:`, { location, category, product, metric, total });
+
+    if (!location || !category || !product || !metric) {
+      console.log(`Skipping row ${index} due to missing data`);
+      return;
+    }
 
     if (!parsedData[location]) {
       parsedData[location] = {};
+      console.log(`Created location: ${location}`);
     }
     if (!parsedData[location][metric]) {
       parsedData[location][metric] = {};
+      console.log(`Created metric: ${metric} for location: ${location}`);
     }
     if (!parsedData[location][metric][category]) {
       parsedData[location][metric][category] = {};
+      console.log(`Created category: ${category} for metric: ${metric}`);
     }
 
     const months: { [key: string]: number | null } = {};
     
-    // Parse month columns
+    // Parse month columns - look for columns that match month-year pattern
     Object.keys(row).forEach(key => {
       if (key.includes('-') && (key.includes('24') || key.includes('25'))) {
         const value = row[key];
-        months[key] = value && value !== '' ? parseFloat(value) : null;
+        // Convert empty strings and null values to null, parse numbers
+        if (value === '' || value === null || value === undefined) {
+          months[key] = null;
+        } else {
+          const numValue = parseFloat(value);
+          months[key] = isNaN(numValue) ? null : numValue;
+        }
       }
     });
+
+    console.log(`Months for ${product}:`, months);
 
     parsedData[location][metric][category][product] = {
       location,
@@ -68,6 +88,9 @@ export const parseCSV = (csvText: string): ParsedCSVData => {
     };
   });
 
+  console.log('Final parsed data structure:', parsedData);
+  console.log('Locations found:', Object.keys(parsedData));
+  
   return parsedData;
 };
 

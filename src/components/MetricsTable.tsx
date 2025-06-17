@@ -55,6 +55,10 @@ const MetricsTable: React.FC<MetricsTableProps> = ({ locationData, locationName 
   const monthColumns = getMonthColumns();
   const availableMetrics = Object.keys(locationData);
 
+  console.log('MetricsTable received data:', locationData);
+  console.log('Available metrics:', availableMetrics);
+  console.log('Selected metric:', selectedMetric);
+
   const toggleCategory = (category: string) => {
     const newExpanded = new Set(expandedCategories);
     if (newExpanded.has(category)) {
@@ -101,7 +105,8 @@ const MetricsTable: React.FC<MetricsTableProps> = ({ locationData, locationName 
   if (!selectedMetric || !locationData[selectedMetric]) {
     return (
       <div className="text-center py-8 text-gray-500">
-        No data available for this location
+        <p>No data available for this location</p>
+        <p className="text-sm mt-2">Available metrics: {availableMetrics.join(', ')}</p>
       </div>
     );
   }
@@ -112,6 +117,9 @@ const MetricsTable: React.FC<MetricsTableProps> = ({ locationData, locationName 
                          selectedMetric.toLowerCase().includes('value') ||
                          selectedMetric.toLowerCase().includes('amount') ||
                          selectedMetric.toLowerCase().includes('vat');
+
+  console.log('Rendering metric data:', metricData);
+  console.log('Is revenue metric:', isRevenueMetric);
 
   return (
     <div className="w-full bg-gradient-to-br from-white/80 via-blue-50/30 to-purple-50/20 p-6 rounded-3xl shadow-2xl border border-white/20 backdrop-blur-xl">

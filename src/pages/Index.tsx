@@ -17,9 +17,12 @@ const Dashboard = () => {
           throw new Error('Failed to load CSV file');
         }
         const csvText = await response.text();
+        console.log('CSV Text loaded:', csvText.substring(0, 500) + '...');
         const parsedData = parseCSV(csvText);
+        console.log('Parsed data:', parsedData);
         setData(parsedData);
       } catch (err) {
+        console.error('Error loading CSV:', err);
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
         setLoading(false);
@@ -30,11 +33,16 @@ const Dashboard = () => {
   }, []);
 
   const locations = Object.keys(data);
+  
+  // Updated location display names to match CSV data exactly
   const locationDisplayNames = {
     'Kenkere House': 'Kenkere House',
     'Supreme HQ Bandra': 'Supreme HQ, Bandra', 
     'Kwality House Kemps Corner': 'Kwality House, Kemps Corner'
   };
+
+  console.log('Available locations:', locations);
+  console.log('Location display names:', locationDisplayNames);
 
   if (loading) {
     return (
@@ -66,6 +74,7 @@ const Dashboard = () => {
         <div className="text-center bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl">
           <h2 className="text-2xl font-bold text-slate-800 mb-2">No Data Available</h2>
           <p className="text-slate-600">No metrics data found in the CSV file</p>
+          <p className="text-slate-500 text-sm mt-2">Check console for debugging information</p>
         </div>
       </div>
     );
