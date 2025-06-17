@@ -34,11 +34,10 @@ const Dashboard = () => {
 
   const locations = Object.keys(data);
   
-  // Updated location display names to match CSV data exactly
   const locationDisplayNames = {
     'Kenkere House': 'Kenkere House',
-    'Supreme HQ Bandra': 'Supreme HQ, Bandra', 
-    'Kwality House Kemps Corner': 'Kwality House, Kemps Corner'
+    'Supreme HQ Bandra': 'Supreme HQ Bandra', 
+    'Kwality House Kemps Corner': 'Kwality House Kemps Corner'
   };
 
   console.log('Available locations:', locations);
@@ -46,11 +45,11 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <h2 className="text-2xl font-bold text-slate-800">Loading Metrics Data...</h2>
-          <p className="text-slate-600 mt-2">Please wait while we load your performance metrics</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-2 border-blue-600 border-t-transparent mx-auto mb-4"></div>
+          <h2 className="text-xl font-semibold text-gray-900">Loading Metrics Data</h2>
+          <p className="text-gray-600 mt-2">Please wait while we load your performance metrics</p>
         </div>
       </div>
     );
@@ -58,10 +57,10 @@ const Dashboard = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-100 flex items-center justify-center">
-        <div className="text-center bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl border border-red-200">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold text-red-800 mb-2">Error Loading Data</h2>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center bg-white rounded-xl p-8 shadow-sm border border-red-200 max-w-md">
+          <div className="text-red-500 text-4xl mb-4">⚠️</div>
+          <h2 className="text-xl font-semibold text-red-800 mb-2">Error Loading Data</h2>
           <p className="text-red-600">{error}</p>
         </div>
       </div>
@@ -70,52 +69,54 @@ const Dashboard = () => {
 
   if (locations.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-100 flex items-center justify-center">
-        <div className="text-center bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl">
-          <h2 className="text-2xl font-bold text-slate-800 mb-2">No Data Available</h2>
-          <p className="text-slate-600">No metrics data found in the CSV file</p>
-          <p className="text-slate-500 text-sm mt-2">Check console for debugging information</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center bg-white rounded-xl p-8 shadow-sm border max-w-md">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">No Data Available</h2>
+          <p className="text-gray-600">No metrics data found in the CSV file</p>
+          <p className="text-gray-500 text-sm mt-2">Check console for debugging information</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-100">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-white/90 via-blue-50/80 to-purple-50/90 backdrop-blur-xl border-b border-white/30 shadow-xl">
-        <div className="max-w-full mx-auto px-8 py-8">
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="text-center">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-slate-800 via-blue-700 to-purple-700 bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl font-bold text-gray-900 mb-3">
               Performance Analytics Dashboard
             </h1>
-            <p className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
-              Comprehensive metrics analysis across all locations with advanced visualizations and growth indicators
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Comprehensive metrics analysis across all locations with detailed insights and growth indicators
             </p>
-            <div className="w-32 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mx-auto mt-6 rounded-full"></div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-full mx-auto px-8 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         <Tabs defaultValue={locations[0]} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-white/70 backdrop-blur-md border border-white/30 shadow-2xl rounded-2xl p-2 mb-8">
-            {locations.map((location) => (
-              <TabsTrigger 
-                key={location}
-                value={location}
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/80 transition-all duration-300 rounded-xl px-6 py-4 text-lg font-semibold"
-              >
-                <div className="text-center">
-                  <div className="font-bold">{locationDisplayNames[location as keyof typeof locationDisplayNames] || location}</div>
-                  <div className="text-xs opacity-75 mt-1">
-                    {Object.keys(data[location]).length} metrics available
+          {/* Location Tabs */}
+          <div className="mb-8">
+            <TabsList className="inline-flex bg-white border border-gray-200 rounded-lg p-1 shadow-sm">
+              {locations.map((location) => (
+                <TabsTrigger 
+                  key={location}
+                  value={location}
+                  className="data-[state=active]:bg-gray-900 data-[state=active]:text-white data-[state=active]:shadow-sm text-gray-700 hover:text-gray-900 transition-colors px-6 py-3 text-sm font-medium rounded-md"
+                >
+                  <div className="text-center">
+                    <div className="font-semibold">{locationDisplayNames[location as keyof typeof locationDisplayNames] || location}</div>
+                    <div className="text-xs opacity-75 mt-0.5">
+                      {Object.keys(data[location]).length} metrics
+                    </div>
                   </div>
-                </div>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
           
           {locations.map((location) => (
             <TabsContent key={location} value={location} className="mt-0">
