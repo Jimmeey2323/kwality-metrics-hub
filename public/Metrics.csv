@@ -1,0 +1,22 @@
+
+Location,Category,Product,Jan-24,Feb-24,Mar-24,Apr-24,May-24,Jun-24,Jul-24,Aug-24,Sep-24,Oct-24,Nov-24,Dec-24,Jan-25,Feb-25,Mar-25,Apr-25,May-25,Jun-25,Total,Metric
+Kenkere House,Class Packages,Studio 10 Single Class Package,50976,11328,53808,50976,,61006,,10384,23364,,11682,12980,,,,,,,286504,Gross Sales
+Kenkere House,Class Packages,Studio 10 Single Class Package,43200,9600,45600,43200,,51700,,8800,19800,,9900,11000,,,,,,,242800,Net Sales
+Kenkere House,Class Packages,Studio 10 Single Class Package,4,1,4,4,,5,,1,2,,1,1,,,,,,,23,Units Sold
+Kenkere House,Class Packages,Studio 10 Single Class Package,4,1,4,4,,5,,1,2,,1,1,,,,,,,23,Transactions
+Kenkere House,Class Packages,Studio 10 Single Class Package,4,1,4,4,,5,,1,2,,1,1,,,,,,,20,Unique Members
+Kenkere House,Class Packages,Studio 10 Single Class Package,12744,11328,13452,12744,,12201,,10384,11682,,11682,12980,,,,,,,12457,Average Unit Value (AUV)
+Supreme HQ Bandra,Class Packages,Studio 10 Single Class Package,16941,15783,15930,15930,15930,13487,14868,14524,14868,14868,14868,14868,,,,,,,15239,Average Transaction Value (ATV)
+Kenkere House,Class Packages,Studio 10 Single Class Package,12744,11328,13452,12744,,12201,,10384,11682,,11682,12980,,,,,,,12457,Average Spend Value (ASV)
+Kenkere House,Class Packages,Studio 10 Single Class Package,1.0,1.0,1.0,1.0,,1.0,,1.0,1.0,,1.0,1.0,,,,,,,1.0,Units per Transaction (UPT)
+Kenkere House,Class Packages,Studio 10 Single Class Package,7776,1728,8208,7776,,9306,,1584,3564,,1782,1980,,,,,,,43704,VAT
+Kenkere House,Class Packages,Studio 10 Single Class Package,4800,2400,2400,4800,,3300,,2200,2200,,1100,0,,,,,,,23200,Discount Amount
+Kenkere House,Class Packages,Studio 10 Single Class Package,9.4,21.2,4.5,9.4,,5.4,,21.2,9.4,,9.4,0.0,,,,,,,8.1,Discount Percentage
+Kenkere House,Class Packages,Studio 10 Single Class Package,4,1,2,3,,3,,1,2,,1,,,,,,,,17,Discounted Transactions
+Kenkere House,Class Packages,Studio 10 Single Class Package,50976,11328,25488,36816,,35046,,10384,23364,,11682,,,,,,,,205084,Sales from Discounted Transactions
+Supreme HQ Bandra,Class Packages,Premium Membership,75000,68000,82000,71000,69000,85000,78000,72000,89000,74000,76000,88000,,,,,,,827000,Gross Sales
+Supreme HQ Bandra,Class Packages,Premium Membership,68000,62000,74000,64000,62000,77000,70000,65000,80000,67000,69000,79000,,,,,,,737000,Net Sales
+Supreme HQ Bandra,Class Packages,Premium Membership,25,23,28,24,23,29,26,24,30,25,26,29,,,,,,,312,Units Sold
+Kwality House Kemps Corner,Class Packages,Basic Membership,45000,38000,52000,41000,39000,55000,48000,42000,58000,44000,46000,57000,,,,,,,565000,Gross Sales
+Kwality House Kemps Corner,Class Packages,Basic Membership,40500,34200,46800,36900,35100,49500,43200,37800,52200,39600,41400,51300,,,,,,,508500,Net Sales
+Kwality House Kemps Corner,Class Packages,Basic Membership,18,15,21,17,16,22,19,17,23,18,19,23,,,,,,,228,Units Sold
